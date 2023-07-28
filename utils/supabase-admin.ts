@@ -1,17 +1,53 @@
 import { stripe, supabase } from '@/trigger';
+import { Database } from '@/types_db';
 import { toDateTime } from '@/utils/helpers';
 import type {
   IOWithIntegrations,
   IntegrationIO,
   TriggerPayload
 } from '@trigger.dev/sdk';
-import { Database } from '@/types_db';
-import Stripe from 'stripe';
+import type { Stripe } from 'stripe';
 
 export type SupabaseProduct = Database['public']['Tables']['products']['Row'];
 export type SupabasePrice = Database['public']['Tables']['prices']['Row'];
 export type CreateSupabaseSubscriptionInput =
   Database['public']['Tables']['subscriptions']['Insert'];
+
+export async function createOrRetrieveCustomer({
+  email,
+  uuid
+}: {
+  email: string;
+  uuid: string;
+}) {
+  const { data, error } = await supabase.native
+    .from('customers')
+    .select('stripe_customer_id')
+    .eq('id', uuid)
+    .single();
+
+  if (error || !data?.stripe_customer_id) {
+    // No customer record found, let's create one.
+    const customerData: {
+      metadata: { supabaseUUID: string };
+      email?: string;
+    } = {
+      metadata: {
+        supabaseUUID: uuid
+      }
+    };
+    if (email) customerData.email = email;
+    const customer = await stripe.native.customers.create(customerData);
+    // Now insert the customer ID into our Supabase mapping table.
+    const { error: supabaseError } = await supabase.native
+      .from('customers')
+      .insert([{ id: uuid, stripe_customer_id: customer.id }]);
+    if (supabaseError) throw supabaseError;
+    console.log(`New customer created and inserted for ${uuid}.`);
+    return customer.id;
+  }
+  return data.stripe_customer_id;
+}
 
 export async function upsertProductRecord(
   payload: TriggerPayload<ReturnType<typeof stripe.onProductCreated>>,

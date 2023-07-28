@@ -27,11 +27,11 @@ dependencies:
     specifier: ^2.0.0-next.22
     version: 2.0.0-next.22
   '@trigger.dev/stripe':
-    specifier: 0.1.0-next.0
-    version: 0.1.0-next.0
+    specifier: 0.1.0-next.1
+    version: 0.1.0-next.1
   '@trigger.dev/supabase':
-    specifier: 0.1.1-next.0
-    version: 0.1.1-next.0
+    specifier: 0.1.1-next.1
+    version: 0.1.1-next.1
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -47,9 +47,6 @@ dependencies:
   react-merge-refs:
     specifier: ^2.0.2
     version: 2.0.2
-  stripe:
-    specifier: ^12.6.0
-    version: 12.7.0
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2
@@ -97,6 +94,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.3.0
     version: 0.3.0(@ianvs/prettier-plugin-sort-imports@3.7.2)(prettier@2.8.8)
+  stripe:
+    specifier: ^12.6.0
+    version: 12.16.0
   supabase:
     specifier: ^1.63.1
     version: 1.64.8
@@ -774,8 +774,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@trigger.dev/stripe@0.1.0-next.0:
-    resolution: {integrity: sha512-B6reEgx/w3GbirLSwSUGgz9siwG66pXF2yfhugowtNBSakXG2oYJvIQo1us11elaigqUqdlRwkiW5BQWqOaMLw==}
+  /@trigger.dev/stripe@0.1.0-next.1:
+    resolution: {integrity: sha512-XOcD/hf8PVtCLNfEOgiQm6EwQOexT+/t6HJXx5VT0cbbLcFEDuv6uM876XmSjZalNBDGfh0gv4Q/CWZPz9Y1gQ==}
     engines: {node: '>=16.8.0'}
     dependencies:
       '@trigger.dev/integration-kit': 2.0.0-next.5
@@ -789,8 +789,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@trigger.dev/supabase@0.1.1-next.0:
-    resolution: {integrity: sha512-zuY9xr6jGeoBtz8hYJovXNnc/iAVHMKttSrpGPx6BmvtlmNsvwfoUNJyO4Q0DleR9FwWgdZklnfQOyW6rIp/IQ==}
+  /@trigger.dev/supabase@0.1.1-next.1:
+    resolution: {integrity: sha512-6fgluQl2A4+NXjuMnblenMZx/Au+uElShBieP5uFruK0OON0Sh5HLOHf8YH96SQLzHmKojlt95D86mLpGdGBrA==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@supabase/supabase-js': 2.31.0
@@ -4074,15 +4074,6 @@ packages:
     dependencies:
       '@types/node': 20.2.5
       qs: 6.11.2
-    dev: false
-
-  /stripe@12.7.0:
-    resolution: {integrity: sha512-4yY9gNFznBI6fZtR0B4y2a+o2EJe+s7p4DiHECKphwa36zYIczpWzO1g4dF0PF3lhTRw5FWTaHGBjwaD5FEiDQ==}
-    engines: {node: '>=12.*'}
-    dependencies:
-      '@types/node': 20.2.5
-      qs: 6.11.2
-    dev: false
 
   /styled-jsx@5.1.1(@babel/core@7.22.1)(react@18.2.0):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
