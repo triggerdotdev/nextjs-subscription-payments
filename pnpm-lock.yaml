@@ -21,17 +21,17 @@ dependencies:
     specifier: ^2.23.0
     version: 2.24.0
   '@trigger.dev/nextjs':
-    specifier: ^1.0.0-next.8
-    version: 1.0.0-next.8(@trigger.dev/sdk@2.0.0-next.22)(next@13.4.3)
+    specifier: ^2.0.2
+    version: 2.0.2(@trigger.dev/sdk@2.0.2)(next@13.4.3)
   '@trigger.dev/sdk':
-    specifier: ^2.0.0-next.22
-    version: 2.0.0-next.22
+    specifier: ^2.0.2
+    version: 2.0.2
   '@trigger.dev/stripe':
-    specifier: 0.1.0-next.1
-    version: 0.1.0-next.1
+    specifier: ^2.0.2
+    version: 2.0.2
   '@trigger.dev/supabase':
-    specifier: 0.1.1-next.1
-    version: 0.1.1-next.1
+    specifier: ^2.0.2
+    version: 2.0.2
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^3.7.2
     version: 3.7.2(prettier@2.8.8)
   '@trigger.dev/cli':
-    specifier: 0.2.1-next.25
-    version: 0.2.1-next.25(typescript@5.0.4)
+    specifier: ^2.0.2
+    version: 2.0.2(typescript@5.0.4)
   '@types/node':
     specifier: ^20.2.3
     version: 20.2.5
@@ -696,8 +696,8 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@trigger.dev/cli@0.2.1-next.25(typescript@5.0.4):
-    resolution: {integrity: sha512-spm5dE2S8H5uqsppPQoWmUnezp6GOCzG16gA72J3Y2cUh71bT8k+lvz2ayZAxkPz5hu//bHo+kRx7dEVYiiDwA==}
+  /@trigger.dev/cli@2.0.2(typescript@5.0.4):
+    resolution: {integrity: sha512-SHRKHlX9UbvDWzDtTxD+rsNsmavXv7J0dykt5mGrKtAfuck/2U7wQN3L2gz4snGMearT1T7h0HD3eVk9aNI6QA==}
     engines: {node: '>=16.8.0'}
     hasBin: true
     dependencies:
@@ -711,11 +711,13 @@ packages:
       gradient-string: 2.0.2
       inquirer: 9.2.8
       localtunnel: 2.0.2
+      nanoid: 4.0.2
       ngrok: 5.0.0-beta.2
       node-fetch: 3.3.1
       openai: 3.3.0
       ora: 6.3.1
       path-to-regexp: 6.2.1
+      posthog-node: 3.1.1
       simple-git: 3.19.1
       terminal-link: 3.0.0
       tsconfck: 2.1.2(typescript@5.0.4)
@@ -727,31 +729,41 @@ packages:
       - typescript
     dev: true
 
-  /@trigger.dev/integration-kit@2.0.0-next.5:
-    resolution: {integrity: sha512-+ZHtzkmUT+3bP+I4g0ddFvqyi63gsmoloL18WIfVCiPQmPvxGBbqvy2vNQFFC9cI7vT32imKzDtyc5LFx3GH9w==}
+  /@trigger.dev/core@2.0.2:
+    resolution: {integrity: sha512-VQkppbRd7QPELG0TOPKHvBQ9/PumEjF60pOSxM4riGyfND7gBn+AqgdQpcKAoWxopANVHx4lX+ZPDaSDZmL5nw==}
+    engines: {node: '>=16.8.0'}
+    dependencies:
+      ulid: 2.3.0
+      zod: 3.21.4
+      zod-error: 1.5.0
+    dev: false
+
+  /@trigger.dev/integration-kit@2.0.2:
+    resolution: {integrity: sha512-DW18ut6GzI1BzPJww7YWH3UmYgPA1I4X9UvRQvyrZYgwd/F9tBEcfsORgnBPGjbVIfydsUa0bVgF6BW2sBQE9w==}
     engines: {node: '>=16.8.0'}
     dependencies:
       uuid: 9.0.0
     dev: false
 
-  /@trigger.dev/nextjs@1.0.0-next.8(@trigger.dev/sdk@2.0.0-next.22)(next@13.4.3):
-    resolution: {integrity: sha512-azZFVffyfAXAQFWHCU0yEP3SSRQFymgycU4cKtnsWoKRgPPIw1Y6fpWc0D9v+xJ5hUjFdoEm6SBAoIS1vpBlxA==}
+  /@trigger.dev/nextjs@2.0.2(@trigger.dev/sdk@2.0.2)(next@13.4.3):
+    resolution: {integrity: sha512-Z/kmPVFlwZg0sDRSnwOAAfFvMH0keeJ+EIhxCUydQuyEPeW4np16WwH9RKKsgtjznkiatb2iODHMivV28EScDw==}
     engines: {node: '>=16.8.0'}
     peerDependencies:
-      '@trigger.dev/sdk': ^2.0.0-next.16
+      '@trigger.dev/sdk': ^2.0.2
       next: '>=12.0.0 <14.0.0'
     dependencies:
-      '@trigger.dev/sdk': 2.0.0-next.22
+      '@trigger.dev/sdk': 2.0.2
       debug: 4.3.4
       next: 13.4.3(@babel/core@7.22.1)(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@trigger.dev/sdk@2.0.0-next.22:
-    resolution: {integrity: sha512-cEbeu58im670XJPcHCpsGjzeJ/Qix9c8/xD9bnKH+8BwxoWo5QsYzVai4zDErnCa33cOuvzSsQG7jxCpp8UYEQ==}
+  /@trigger.dev/sdk@2.0.2:
+    resolution: {integrity: sha512-Nl3yR93DKUR3GNwFkDU5eUnnbWzy7K0kI0M1IuKmoRhmB5gYSsjV51x8YC6or5sk+MGuZ3jD+ADG1lIwxLhzvQ==}
     engines: {node: '>=16.8.0'}
     dependencies:
+      '@trigger.dev/core': 2.0.2
       chalk: 5.3.0
       cronstrue: 2.28.0
       debug: 4.3.4
@@ -774,12 +786,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@trigger.dev/stripe@0.1.0-next.1:
-    resolution: {integrity: sha512-XOcD/hf8PVtCLNfEOgiQm6EwQOexT+/t6HJXx5VT0cbbLcFEDuv6uM876XmSjZalNBDGfh0gv4Q/CWZPz9Y1gQ==}
+  /@trigger.dev/stripe@2.0.2:
+    resolution: {integrity: sha512-MdRQ0Z2tm48Ygqgy4KY49c9w2vgePww5wp0KYBpanFMw4cehm7YcBd0xY560xgjUMsIiEdr6Pr0HAve/3/1RGw==}
     engines: {node: '>=16.8.0'}
     dependencies:
-      '@trigger.dev/integration-kit': 2.0.0-next.5
-      '@trigger.dev/sdk': 2.0.0-next.22
+      '@trigger.dev/integration-kit': 2.0.2
+      '@trigger.dev/sdk': 2.0.2
       stripe: 12.16.0
       zod: 3.21.4
     transitivePeerDependencies:
@@ -789,13 +801,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@trigger.dev/supabase@0.1.1-next.1:
-    resolution: {integrity: sha512-6fgluQl2A4+NXjuMnblenMZx/Au+uElShBieP5uFruK0OON0Sh5HLOHf8YH96SQLzHmKojlt95D86mLpGdGBrA==}
+  /@trigger.dev/supabase@2.0.2:
+    resolution: {integrity: sha512-1hfyc2igtdxE9ay+41EB/BivXUIJQqJxGwtzf+9PJAKGR8mg5HXG4EG2I0jdyqHD6Fbu/PqQvbL9JhkbS7Y/WQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@supabase/supabase-js': 2.31.0
-      '@trigger.dev/integration-kit': 2.0.0-next.5
-      '@trigger.dev/sdk': 2.0.0-next.22
+      '@trigger.dev/integration-kit': 2.0.2
+      '@trigger.dev/sdk': 2.0.2
       supabase-management-js: 0.1.2
       zod: 3.21.4
     transitivePeerDependencies:
@@ -1122,6 +1134,15 @@ packages:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
       follow-redirects: 1.15.2(debug@4.3.2)
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
+  /axios@0.27.2:
+    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+    dependencies:
+      follow-redirects: 1.15.2(debug@4.3.2)
+      form-data: 4.0.0
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3151,6 +3172,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: true
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -3597,6 +3624,16 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /posthog-node@3.1.1:
+    resolution: {integrity: sha512-OUSYcnLHbzvY/dxNsbUGoYuTZz5XNx48BkfiCkOIJZMFvot5VPQ0KWEjX+kzYxEwHeXbjW9plqsOVcYCYfidgg==}
+    engines: {node: '>=15.0.0'}
+    dependencies:
+      axios: 0.27.2
+      rusha: 0.8.14
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -3853,6 +3890,10 @@ packages:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
       queue-microtask: 1.2.3
+
+  /rusha@0.8.14:
+    resolution: {integrity: sha512-cLgakCUf6PedEu15t8kbsjnwIFFR2D4RfL+W3iWFJ4iac7z4B0ZI8fxy4R3J956kAI68HclCFGL8MPoUVC3qVA==}
+    dev: true
 
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}

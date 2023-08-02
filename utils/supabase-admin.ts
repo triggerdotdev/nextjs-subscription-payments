@@ -81,6 +81,17 @@ export async function upsertPriceRecord(
   });
 }
 
+export async function deletePriceRecord(
+  id: string,
+  ioSupa: IntegrationIO<typeof supabase>
+) {
+  await ioSupa.runTask('🗑', async (db) => {
+    const { error } = await db.from('prices').delete().eq('id', id);
+
+    if (error) throw error;
+  });
+}
+
 export async function manageSubscriptionStatusChange(
   io: IOWithIntegrations<{ supabase: typeof supabase; stripe: typeof stripe }>,
   {

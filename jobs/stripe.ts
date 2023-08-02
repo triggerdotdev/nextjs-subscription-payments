@@ -1,41 +1,16 @@
 import { client, stripe, supabase } from '@/trigger';
 import {
+  deletePriceRecord,
   manageSubscriptionStatusChange,
   upsertPriceRecord,
   upsertProductRecord
 } from '@/utils/supabase-admin';
 
 client.defineJob({
-  id: 'stripe-product-created',
-  name: 'Stripe Product Created',
+  id: 'stripe-product-changed',
+  name: 'Stripe Product Changed',
   version: '0.0.1',
-  trigger: stripe.onProductCreated(),
-  integrations: {
-    supabase
-  },
-  run: async (payload, io) => {
-    await upsertProductRecord(payload, io.supabase);
-  }
-});
-
-client.defineJob({
-  id: 'stripe-product-updated',
-  name: 'Stripe Product Updated',
-  version: '0.0.1',
-  trigger: stripe.onProductUpdated(),
-  integrations: {
-    supabase
-  },
-  run: async (payload, io) => {
-    await upsertProductRecord(payload, io.supabase);
-  }
-});
-
-client.defineJob({
-  id: 'stripe-product-updated',
-  name: 'Stripe Product Updated',
-  version: '0.0.1',
-  trigger: stripe.onProductUpdated(),
+  trigger: stripe.onProduct({ events: ['product.created', 'product.updated'] }),
   integrations: {
     supabase
   },
@@ -62,53 +37,33 @@ client.defineJob({
 });
 
 client.defineJob({
-  id: 'stripe-price-created',
-  name: 'Stripe Price Created',
+  id: 'stripe-price-changed',
+  name: 'Stripe Price Changed',
   version: '0.0.1',
-  trigger: stripe.onPriceCreated(),
+  trigger: stripe.onPrice(),
   integrations: {
     supabase
   },
-  run: async (payload, io) => {
-    await upsertPriceRecord(payload, io.supabase);
+  run: async (payload, io, ctx) => {
+    if (ctx.event.name === 'price.deleted') {
+      await deletePriceRecord(payload.id, io.supabase);
+    } else {
+      await upsertPriceRecord(payload, io.supabase);
+    }
   }
 });
 
 client.defineJob({
-  id: 'stripe-price-updated',
-  name: 'Stripe Price Updated',
+  id: 'stripe-subscription-changed',
+  name: 'Stripe Subscription Changed',
   version: '0.0.1',
-  trigger: stripe.onPriceUpdated(),
-  integrations: {
-    supabase
-  },
-  run: async (payload, io) => {
-    await upsertPriceRecord(payload, io.supabase);
-  }
-});
-
-client.defineJob({
-  id: 'stripe-price-deleted',
-  name: 'Stripe Price Deleted',
-  version: '0.0.1',
-  trigger: stripe.onPriceDeleted(),
-  integrations: {
-    supabase
-  },
-  run: async (payload, io) => {
-    await io.supabase.runTask('🗑', async (db) => {
-      const { error } = await db.from('prices').delete().eq('id', payload.id);
-
-      if (error) throw error;
-    });
-  }
-});
-
-client.defineJob({
-  id: 'stripe-subscription-created',
-  name: 'Stripe Subscription Created',
-  version: '0.0.1',
-  trigger: stripe.onCustomerSubscriptionCreated(),
+  trigger: stripe.onCustomerSubscription({
+    events: [
+      'customer.subscription.created',
+      'customer.subscription.updated',
+      'customer.subscription.deleted'
+    ]
+  }),
   integrations: {
     supabase,
     stripe
@@ -117,43 +72,7 @@ client.defineJob({
     await manageSubscriptionStatusChange(io, {
       subscriptionId: payload.id,
       customerId: payload.customer as string,
-      createAction: true
-    });
-  }
-});
-
-client.defineJob({
-  id: 'stripe-subscription-updated',
-  name: 'Stripe Subscription Updated',
-  version: '0.0.1',
-  trigger: stripe.onCustomerSubscriptionUpdated(),
-  integrations: {
-    supabase,
-    stripe
-  },
-  run: async (payload, io, ctx) => {
-    await manageSubscriptionStatusChange(io, {
-      subscriptionId: payload.id,
-      customerId: payload.customer as string,
-      createAction: false
-    });
-  }
-});
-
-client.defineJob({
-  id: 'stripe-subscription-deleted',
-  name: 'Stripe Subscription Deleted',
-  version: '0.0.1',
-  trigger: stripe.onCustomerSubscriptionDeleted(),
-  integrations: {
-    supabase,
-    stripe
-  },
-  run: async (payload, io, ctx) => {
-    await manageSubscriptionStatusChange(io, {
-      subscriptionId: payload.id,
-      customerId: payload.customer as string,
-      createAction: false
+      createAction: ctx.event.name === 'customer.subscription.created'
     });
   }
 });
